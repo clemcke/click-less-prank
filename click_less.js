@@ -25,6 +25,7 @@ function replaceMe(el){
     $dup.css("left",el.position()["left"]);
     $dup.css("top",el.position()["top"]);
     $dup.css("cursor","default");
+    $dup.css("z-index",2000);
     $dup.click(function(){return false;});
 
     el.css("opacity",0);
