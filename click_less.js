@@ -4,6 +4,8 @@ $(document).ready(function(){
   $(document).mousemove(function(e){
     $('#x-loc .text').html(e.pageX);
     $('#y-loc .text').html(e.pageY);
+
+    detectCollision(e);
   });
 
   $('a').mouseenter(function(e){
@@ -27,16 +29,12 @@ function replaceMe(el){
 
     var $dup = $(".showme.showme_id_" + showme_count);
 
-    $dup.mouseover(function(e){
-      var $this = $(this);
-      moveOuttaTheWay(e,$this);
-    });
-
     $dup.css("left",el.position()["left"]);
     $dup.css("top",el.position()["top"]);
     $dup.css("cursor","default");
     $dup.css("z-index",2000);
     $dup.click(function(){return false;});
+    $dup.mouseenter(function(e){moveOuttaTheWay(e,$(this))});
 
     el.css("opacity",0);
     el.addClass("hideme");
@@ -80,4 +78,15 @@ function moveOuttaTheWay(e,el){
       el.css("top",y + 2);
       //move down
   }
+}
+
+function detectCollision(e){
+  var x = e.pageX,
+      y = e.pageY;
+  $(".showme").each(function(index,value){
+    var el = $(value),
+        box = getBox(el);
+    if(x < box.right && x > box.left && y < box.bottom && y > box.top)
+      moveOuttaTheWay(e,el);
+  })
 }
