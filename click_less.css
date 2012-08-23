@@ -31,11 +31,6 @@
     border-left: 1px solid #DDD;
 }
 
-.collision {
-    color: red;
-    width: 150px;
-}
-
 .showme {
     position: absolute;
 }
