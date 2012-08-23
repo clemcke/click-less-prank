@@ -29,16 +29,14 @@ function getBox(el){
 }
 
 function replaceMe(el){
-  if(el.hasClass("hideme"))
-    return;
-  if(el.parent(".showme").length == 0){
+  if($(".showme").length == 0){
     el.parent().append(el.clone().addClass("showme"));
     var $dup = $(".showme");
     $dup.css("left",el.position()["left"]);
     $dup.css("top",el.position()["top"]);
+    el.css("opacity",0);
+    el.addClass("hideme");
+    el.click(function(){return false;});
+    el.css("cursor", 'default');
   }
-  el.css("opacity",0);
-  el.addClass("hideme");
-  el.click(function(){return false;});
-  el.css("cursor", 'default');
 }
