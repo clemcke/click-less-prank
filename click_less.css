@@ -23,7 +23,19 @@
     top:0;
     width: 10px;
 }
+.content a {
+    background-color: #CCC;
+}
 #y-loc {
     width: 69px;
     border-left: 1px solid #DDD;
+}
+
+.collision {
+    color: red;
+    width: 150px;
+}
+
+.showme {
+    position: absolute;
 }
