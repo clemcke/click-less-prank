@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  click_less();
+});
+
+function click_less(){
   showme_count = 0;
 
   $(document).mousemove(function(e){
@@ -17,18 +21,17 @@ $(document).ready(function(){
     replaceMe($this);
   });
 
-
-});
+}
 
 function replaceMe(el){
   if(el.hasClass("hideme") == false){
-//  if($(".showme").length == 0){
     showme_count += 1;
     el.parent().append(el.clone().addClass("showme").addClass("showme_id_" + showme_count));
     el.addClass("showme_id_" + showme_count);
 
     var $dup = $(".showme.showme_id_" + showme_count);
 
+    $dup.css("position","absolute");
     $dup.css("left",el.position()["left"]);
     $dup.css("top",el.position()["top"]);
     $dup.css("cursor","default");
@@ -60,15 +63,7 @@ function moveOuttaTheWay(e,el){
   var box = getBox(el),
       x = e.pageX,
       y = e.pageY;
-  if(x >= box.center_x){
-    if(x <= box.right)
-      el.css("left",x - box.width - 2);
-      //move left
-  }else{
-    if(x >= box.left)
-      el.css("left",x + 2);
-      //move right
-  }
+
   if(y >= box.center_y){
     if(y <= box.bottom)
       el.css("top",y - box.height - 2);
@@ -78,6 +73,17 @@ function moveOuttaTheWay(e,el){
       el.css("top",y + 2);
       //move down
   }
+  // only affects box if w/in the 10% margin to create "slippery" effect, otherwise it's jumpy
+  if(x >= box.center_x){
+    if(x <= box.right && (x + (box.width * 0.10)) >= box.right)
+      el.css("left", x - box.width - 2);
+      //move left
+  }else{
+    if(x >= box.left && (x - (box.width * 0.10)) <= box.left)
+      el.css("left",x + 2);
+      // move right
+  }
+
 }
 
 function detectCollision(e){
